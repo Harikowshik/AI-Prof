@@ -34,11 +34,13 @@ app = FastAPI(
     redoc_url="/redoc"
 )
 
-# CORS middleware for Next.js frontend
+# CORS middleware for Next.js (Netlify) and local dev
+_cors_origins = [o.strip() for o in settings.CORS_ORIGINS.split(",") if o.strip()]
+_allow_all_origins = not _cors_origins or _cors_origins == ["*"]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
+    allow_origins=["*"] if _allow_all_origins else _cors_origins,
+    allow_credentials=not _allow_all_origins,
     allow_methods=["*"],
     allow_headers=["*"],
 )

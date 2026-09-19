@@ -1,6 +1,5 @@
-import os
 from pydantic_settings import BaseSettings
-from pydantic import Field
+from pydantic import Field, field_validator
 
 class Settings(BaseSettings):
     PROJECT_NAME: str = "Multi-Hospital Post-Discharge Outreach Platform"
@@ -13,6 +12,8 @@ class Settings(BaseSettings):
         default="sqlite:///./healthcare_platform.db", 
         env="DATABASE_URL"
     )
+    # Comma-separated origins, or * for any (Netlify + local)
+    CORS_ORIGINS: str = Field(default="*", env="CORS_ORIGINS")
     
     # Authentication & JWT
     JWT_SECRET_KEY: str = Field(
@@ -33,6 +34,18 @@ class Settings(BaseSettings):
     OPENAI_API_KEY: str = Field(default="", env="OPENAI_API_KEY")
     GEMINI_API_KEY: str = Field(default="", env="GEMINI_API_KEY")
     GEMINI_MODEL: str = Field(default="gemini-2.5-flash", env="GEMINI_MODEL")
+
+    @field_validator("DATABASE_URL", mode="before")
+    @classmethod
+    def normalize_database_url(cls, value: str) -> str:
+        if not isinstance(value, str):
+            return value
+        # Render/Heroku provide postgres://; SQLAlchemy 2 needs postgresql+psycopg2://
+        if value.startswith("postgres://"):
+            value = "postgresql+psycopg2://" + value[len("postgres://"):]
+        elif value.startswith("postgresql://") and "+psycopg2" not in value.split("://", 1)[0]:
+            value = "postgresql+psycopg2://" + value[len("postgresql://"):]
+        return value
     
     class Config:
         case_sensitive = True

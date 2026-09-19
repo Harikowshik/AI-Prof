@@ -84,6 +84,11 @@ MEDICATIONS_MAP = {
 def generate_synthetic_data(total_patients: int = 250):
     db = SessionLocal()
     try:
+        existing_patients = db.query(Patient).count()
+        if existing_patients > 0:
+            print(f"Synthetic patients already present ({existing_patients}). Skipping generation.")
+            return
+
         print(f"Generating {total_patients} synthetic patient records across all hospitals...")
         hospitals = db.query(Hospital).all()
         if not hospitals:

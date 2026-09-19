@@ -1,4 +1,13 @@
+# Netlify — Next.js operations dashboard (static export)
+# Site settings → Environment variables (build-time):
+#   NEXT_PUBLIC_API_URL = https://<your-render-service>.onrender.com/api/v1
+# Then trigger a new deploy so the URL is baked into the client bundle.
+
 [build]
   base = "frontend"
   command = "npm run build"
   publish = "out"
+
+[build.environment]
+  NODE_VERSION = "22"
+  NETLIFY = "true"
