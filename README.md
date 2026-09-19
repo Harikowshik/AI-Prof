@@ -195,13 +195,35 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
-## 9. Comprehensive Documentation Sitemap
-- [docs/REQUIREMENTS_TRACEABILITY.md](file:///docs/REQUIREMENTS_TRACEABILITY.md): Complete PRD v2.0 RTM mapping.
-- [docs/ARCHITECTURE.md](file:///docs/ARCHITECTURE.md): System architecture, trust domains, and tenant isolation diagrams.
-- [docs/QUEUE_DESIGN.md](file:///docs/QUEUE_DESIGN.md): Mathematical queue scoring, proofs, and concurrency specifications.
-- [docs/AI_ARCHITECTURE.md](file:///docs/AI_ARCHITECTURE.md): Multi-agent clinical triage, Pydantic schemas, and consensus arbiter logic.
-- [docs/SAFETY_EVALUATION.md](file:///docs/SAFETY_EVALUATION.md): Clinical safety threat model and 30-case dataset analysis.
-- [docs/DEMO_SCRIPT.md](file:///docs/DEMO_SCRIPT.md): Step-by-step 10-minute evaluator walkthrough guide.
-- [docs/LIMITATIONS.md](file:///docs/LIMITATIONS.md): Breakdown of implemented, simulated, and simplified components.
-- [docs/DEVELOPMENT_AI_USAGE.md](file:///docs/DEVELOPMENT_AI_USAGE.md): AI-assisted engineering prompts and architectural decisions.
-- [docs/API.md](file:///docs/API.md): Detailed REST API reference and payload schemas.
+## 9. 🏆 Official Submission Deliverables (PDFs)
+
+All five mandatory submission documents have been generated, fully audited, and formatted with running headers and page numbers:
+
+| Document | File Path | Pages | Focus & Architecture Covered |
+|---|---|:---:|---|
+| **Architecture Documentation** | [`submissions/Architecture_Documentation.pdf`](submissions/Architecture_Documentation.pdf) | 3 | Layer topology, multi-tenancy, priority scoring math, lease reapers, HIPAA audit logging. |
+| **AI Tools & Usage Documentation** | [`submissions/AI_Tools_and_Usage_Documentation.pdf`](submissions/AI_Tools_and_Usage_Documentation.pdf) | 2 | Gemini Flash, Antigravity IDE, Claude, 5-phase engineering workflows, 4-tier verification gate. |
+| **AI Prompts Used During Development** | [`submissions/AI_Prompts_Used_During_Development.pdf`](submissions/AI_Prompts_Used_During_Development.pdf) | 3 | Full prompt engineering catalog (Voice Intake, Triage, Conservative Consensus, Injection Defense, Math). |
+| **Product AI Documentation** | [`submissions/Product_AI_Documentation.pdf`](submissions/Product_AI_Documentation.pdf) | 2 | Dual-agent triage pipeline, Conservative Arbiter, 30-case benchmark (0.00% FNR), Controlled Tools. |
+| **Known Limitations Documentation** | [`submissions/Known_Limitations_Documentation.pdf`](submissions/Known_Limitations_Documentation.pdf) | 2 | PRD §77 four-quadrant disclosure: Implemented, Simulated, Simplified, and Production Roadmap. |
+
+*(All deliverables are also mirrored in [`docs/submissions/`](docs/submissions/)).*
+
+---
+
+## 10. Comprehensive Documentation Sitemap
+- [`docs/REQUIREMENTS_TRACEABILITY.md`](docs/REQUIREMENTS_TRACEABILITY.md): Complete PRD v2.0 Requirements Traceability Matrix.
+- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md): System architecture, trust domains, and tenant isolation diagrams.
+- [`docs/QUEUE_DESIGN.md`](docs/QUEUE_DESIGN.md): Mathematical queue scoring, starvation proofs, and concurrency specifications.
+- [`docs/AI_ARCHITECTURE.md`](docs/AI_ARCHITECTURE.md): Multi-agent clinical triage, Pydantic schemas, and consensus arbiter logic.
+- [`docs/SAFETY_EVALUATION.md`](docs/SAFETY_EVALUATION.md): Clinical safety threat model and 30-case dataset analysis.
+- [`docs/DEMO_SCRIPT.md`](docs/DEMO_SCRIPT.md): Step-by-step 10-minute evaluator walkthrough guide.
+- [`docs/LIMITATIONS.md`](docs/LIMITATIONS.md): Breakdown of implemented, simulated, and simplified components.
+- [`docs/DEVELOPMENT_AI_USAGE.md`](docs/DEVELOPMENT_AI_USAGE.md): AI-assisted engineering prompts and architectural decisions.
+- [`docs/API.md`](docs/API.md): Detailed REST API reference and payload schemas.
+
+---
+
+## 11. License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
