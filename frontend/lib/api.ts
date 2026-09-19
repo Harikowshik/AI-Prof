@@ -284,8 +284,12 @@ class ApiClient {
   // Dashboard & Analytics
   // ============================================================
 
-  async getDashboardAnalytics() {
-    return this.request<any>("/analytics/summary");
+  async getDashboardAnalytics(hospitalId?: string) {
+    const query = hospitalId
+      ? `?hospital_id=${encodeURIComponent(hospitalId)}`
+      : "";
+
+    return this.request<any>(`/analytics/summary${query}`);
   }
 
   // ============================================================
