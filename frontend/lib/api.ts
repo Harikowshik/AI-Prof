@@ -1,10 +1,15 @@
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v1";
+const API_BASE =
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v1";
 
 export interface UserSession {
   token: string;
   email: string;
   fullName: string;
-  role: "PLATFORM_ADMIN" | "HOSPITAL_ADMIN" | "CAMPAIGN_MANAGER" | "CLINICAL_REVIEWER";
+  role:
+    | "PLATFORM_ADMIN"
+    | "HOSPITAL_ADMIN"
+    | "CAMPAIGN_MANAGER"
+    | "CLINICAL_REVIEWER";
   hospitalId?: string | null;
   hospitalName?: string | null;
 }
@@ -59,6 +64,7 @@ class ApiClient {
   constructor() {
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("sachiva_auth");
+
       if (saved) {
         try {
           this.currentUser = JSON.parse(saved);
@@ -77,6 +83,7 @@ class ApiClient {
   setSession(session: UserSession) {
     this.currentUser = session;
     this.token = session.token;
+
     if (typeof window !== "undefined") {
       localStorage.setItem("sachiva_auth", JSON.stringify(session));
     }
@@ -85,6 +92,7 @@ class ApiClient {
   clearSession() {
     this.currentUser = null;
     this.token = null;
+
     if (typeof window !== "undefined") {
       localStorage.removeItem("sachiva_auth");
     }
@@ -93,34 +101,65 @@ class ApiClient {
   async login(email: string, password: string): Promise<UserSession> {
     const res = await fetch(`${API_BASE}/auth/login`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
     });
 
     if (!res.ok) {
-      const err = await res.json().catch(() => ({ detail: "Authentication failed" }));
-      const msg = typeof err.detail === "string" 
-        ? err.detail 
-        : Array.isArray(err.detail)
-        ? err.detail.map((d: any) => d.msg || JSON.stringify(d)).join(", ")
-        : JSON.stringify(err.detail || "Authentication failed");
+      const err = await res
+        .json()
+        .catch(() => ({ detail: "Authentication failed" }));
+
+      const msg =
+        typeof err.detail === "string"
+          ? err.detail
+          : Array.isArray(err.detail)
+          ? err.detail
+              .map((d: any) => d.msg || JSON.stringify(d))
+              .join(", ")
+          : JSON.stringify(err.detail || "Authentication failed");
+
       throw new Error(msg || "Authentication failed");
     }
 
     const data = await res.json();
+
     const session: UserSession = {
       token: data.access_token,
       email: data.email || data.user?.email || email,
-      fullName: data.full_name || data.user?.full_name || "Healthcare User",
-      role: data.role || data.user?.role || "HOSPITAL_ADMIN",
-      hospitalId: data.hospital_id ?? data.user?.hospital_id,
-      hospitalName: data.hospital_name || data.user?.hospital_name || (data.hospital_id ? "Hospital Workspace" : "Global Platform"),
+      fullName:
+        data.full_name ||
+        data.user?.full_name ||
+        "Healthcare User",
+      role:
+        data.role ||
+        data.user?.role ||
+        "HOSPITAL_ADMIN",
+      hospitalId:
+        data.hospital_id ??
+        data.user?.hospital_id,
+      hospitalName:
+        data.hospital_name ||
+        data.user?.hospital_name ||
+        (data.hospital_id
+          ? "Hospital Workspace"
+          : "Global Platform"),
     };
+
     this.setSession(session);
+
     return session;
   }
 
-  private async request<T>(endpoint: string, options: RequestInit & { _retry?: boolean } = {}): Promise<T> {
+  private async request<T>(
+    endpoint: string,
+    options: RequestInit & { _retry?: boolean } = {}
+  ): Promise<T> {
     const headers: Record<string, string> = {
       "Content-Type": "application/json",
       ...(options.headers as Record<string, string> || {}),
@@ -129,9 +168,12 @@ class ApiClient {
     // Auto-login if no token is present and not currently calling login
     if (!this.token && endpoint !== "/auth/login") {
       try {
-        await this.login(DEMO_USERS[1].email, DEMO_USERS[1].password);
+        await this.login(
+          DEMO_USERS[1].email,
+          DEMO_USERS[1].password
+        );
       } catch (e) {
-        // proceed
+        // Proceed without token
       }
     }
 
@@ -144,41 +186,77 @@ class ApiClient {
       headers,
     });
 
-    if (res.status === 401 && !options._retry && endpoint !== "/auth/login") {
+    // Retry once after automatically refreshing authentication
+    if (
+      res.status === 401 &&
+      !options._retry &&
+      endpoint !== "/auth/login"
+    ) {
       this.clearSession();
+
       try {
-        // Transparently acquire fresh demo token and retry once
-        await this.login(DEMO_USERS[1].email, DEMO_USERS[1].password);
-        return await this.request<T>(endpoint, { ...options, _retry: true });
+        await this.login(
+          DEMO_USERS[1].email,
+          DEMO_USERS[1].password
+        );
+
+        return await this.request<T>(
+          endpoint,
+          {
+            ...options,
+            _retry: true,
+          }
+        );
       } catch (reauthErr) {
-        // continue to error
+        // Continue to normal 401 handling below
       }
     }
 
     if (res.status === 401) {
       this.clearSession();
-      throw new Error("Session expired. Please switch user or sign in.");
+      throw new Error(
+        "Session expired. Please switch user or sign in."
+      );
     }
 
     if (!res.ok) {
-      const err = await res.json().catch(() => ({ detail: `HTTP ${res.status}` }));
-      const msg = typeof err.detail === "string" 
-        ? err.detail 
-        : Array.isArray(err.detail)
-        ? err.detail.map((d: any) => d.msg || JSON.stringify(d)).join(", ")
-        : JSON.stringify(err.detail || `Request failed with status ${res.status}`);
-      throw new Error(msg || `Request failed with status ${res.status}`);
+      const err = await res
+        .json()
+        .catch(() => ({
+          detail: `HTTP ${res.status}`,
+        }));
+
+      const msg =
+        typeof err.detail === "string"
+          ? err.detail
+          : Array.isArray(err.detail)
+          ? err.detail
+              .map((d: any) => d.msg || JSON.stringify(d))
+              .join(", ")
+          : JSON.stringify(
+              err.detail || `Request failed with status ${res.status}`
+            );
+
+      throw new Error(
+        msg || `Request failed with status ${res.status}`
+      );
     }
 
     return res.json();
   }
 
+  // ============================================================
   // Auth
+  // ============================================================
+
   async getMe() {
     return this.request<any>("/auth/me");
   }
 
+  // ============================================================
   // Hospitals
+  // ============================================================
+
   async getHospitals() {
     return this.request<any[]>("/hospitals");
   }
@@ -187,38 +265,73 @@ class ApiClient {
     return this.request<any>(`/hospitals/${id}`);
   }
 
-  async updateHospitalCapacity(id: string, maxConcurrentCalls: number) {
-    return this.request<any>(`/hospitals/${id}/capacity`, {
-      method: "PATCH",
-      body: JSON.stringify({ max_concurrent_calls: maxConcurrentCalls }),
-    });
+  async updateHospitalCapacity(
+    id: string,
+    maxConcurrentCalls: number
+  ) {
+    return this.request<any>(
+      `/hospitals/${id}/capacity`,
+      {
+        method: "PATCH",
+        body: JSON.stringify({
+          max_concurrent_calls: maxConcurrentCalls,
+        }),
+      }
+    );
   }
 
+  // ============================================================
   // Dashboard & Analytics
-  async getDashboardAnalytics(hospitalId?: string) {
-    const query = hospitalId ? `?hospital_id=${encodeURIComponent(hospitalId)}` : "";
-    return this.request<any>(`/analytics/dashboard${query}`);
+  // ============================================================
+
+  async getDashboardAnalytics() {
+    return this.request<any>("/analytics/summary");
   }
 
+  // ============================================================
   // Queue Operations
-  async getQueueTasks(params?: { status?: string; limit?: number; hospital_id?: string }) {
+  // ============================================================
+
+  async getQueueTasks(params?: {
+    status?: string;
+    limit?: number;
+    hospital_id?: string;
+  }) {
     const search = new URLSearchParams();
-    if (params?.status) search.set("status", params.status);
-    if (params?.limit) search.set("limit", params.limit.toString());
-    if (params?.hospital_id) search.set("hospital_id", params.hospital_id);
-    const q = search.toString() ? `?${search.toString()}` : "";
+
+    if (params?.status) {
+      search.set("status", params.status);
+    }
+
+    if (params?.limit) {
+      search.set("limit", params.limit.toString());
+    }
+
+    if (params?.hospital_id) {
+      search.set("hospital_id", params.hospital_id);
+    }
+
+    const q = search.toString()
+      ? `?${search.toString()}`
+      : "";
+
     return this.request<any>(`/queue/tasks${q}`);
   }
 
   async getQueueStats(hospitalId?: string) {
-    const query = hospitalId ? `?hospital_id=${encodeURIComponent(hospitalId)}` : "";
+    const query = hospitalId
+      ? `?hospital_id=${encodeURIComponent(hospitalId)}`
+      : "";
+
     return this.request<any>(`/queue/stats${query}`);
   }
 
   async scheduleNextBatch(limit: number = 3) {
     return this.request<any>("/queue/schedule-next", {
       method: "POST",
-      body: JSON.stringify({ limit }),
+      body: JSON.stringify({
+        limit,
+      }),
     });
   }
 
@@ -228,7 +341,10 @@ class ApiClient {
     });
   }
 
+  // ============================================================
   // Calls Simulation
+  // ============================================================
+
   async simulateCall(payload: {
     task_id: string;
     outcome: string;
@@ -246,13 +362,33 @@ class ApiClient {
     return this.request<any>(`/calls/${id}`);
   }
 
+  // ============================================================
   // Patients
-  async getPatients(params?: { limit?: number; search?: string; condition?: string }) {
+  // ============================================================
+
+  async getPatients(params?: {
+    limit?: number;
+    search?: string;
+    condition?: string;
+  }) {
     const search = new URLSearchParams();
-    if (params?.limit) search.set("limit", params.limit.toString());
-    if (params?.search) search.set("search", params.search);
-    if (params?.condition) search.set("condition", params.condition);
-    const q = search.toString() ? `?${search.toString()}` : "";
+
+    if (params?.limit) {
+      search.set("limit", params.limit.toString());
+    }
+
+    if (params?.search) {
+      search.set("search", params.search);
+    }
+
+    if (params?.condition) {
+      search.set("condition", params.condition);
+    }
+
+    const q = search.toString()
+      ? `?${search.toString()}`
+      : "";
+
     return this.request<any>(`/patients${q}`);
   }
 
@@ -260,12 +396,28 @@ class ApiClient {
     return this.request<any>(`/patients/${id}`);
   }
 
+  // ============================================================
   // Escalations
-  async getEscalations(params?: { status?: string; severity?: string }) {
+  // ============================================================
+
+  async getEscalations(params?: {
+    status?: string;
+    severity?: string;
+  }) {
     const search = new URLSearchParams();
-    if (params?.status) search.set("status", params.status);
-    if (params?.severity) search.set("severity", params.severity);
-    const q = search.toString() ? `?${search.toString()}` : "";
+
+    if (params?.status) {
+      search.set("status", params.status);
+    }
+
+    if (params?.severity) {
+      search.set("severity", params.severity);
+    }
+
+    const q = search.toString()
+      ? `?${search.toString()}`
+      : "";
+
     return this.request<any>(`/escalations${q}`);
   }
 
@@ -273,18 +425,27 @@ class ApiClient {
     return this.request<any>(`/escalations/${id}`);
   }
 
-  async resolveEscalation(id: string, payload: {
-    status: "RESOLVED" | "DISMISSED" | "IN_REVIEW";
-    clinical_notes: string;
-    action_taken: string;
-  }) {
-    return this.request<any>(`/escalations/${id}/resolve`, {
-      method: "POST",
-      body: JSON.stringify(payload),
-    });
+  async resolveEscalation(
+    id: string,
+    payload: {
+      status: "RESOLVED" | "DISMISSED" | "IN_REVIEW";
+      clinical_notes: string;
+      action_taken: string;
+    }
+  ) {
+    return this.request<any>(
+      `/escalations/${id}/resolve`,
+      {
+        method: "POST",
+        body: JSON.stringify(payload),
+      }
+    );
   }
 
+  // ============================================================
   // Campaigns
+  // ============================================================
+
   async getCampaigns() {
     return this.request<any>("/campaigns");
   }
@@ -294,37 +455,72 @@ class ApiClient {
   }
 
   async evaluateCampaignEligibility(id: string) {
-    return this.request<any>(`/campaigns/${id}/evaluate`, {
-      method: "POST",
-    });
+    return this.request<any>(
+      `/campaigns/${id}/evaluate`,
+      {
+        method: "POST",
+      }
+    );
   }
 
   async getCampaignWorkload(id: string) {
-    return this.request<any>(`/campaigns/${id}/workload`);
+    return this.request<any>(
+      `/campaigns/${id}/workload`
+    );
   }
 
-  async updateCampaignStatus(id: string, status: "ACTIVE" | "PAUSED" | "DRAFT") {
-    return this.request<any>(`/campaigns/${id}/status`, {
-      method: "PATCH",
-      body: JSON.stringify({ status }),
-    });
+  async updateCampaignStatus(
+    id: string,
+    status: "ACTIVE" | "PAUSED" | "DRAFT"
+  ) {
+    return this.request<any>(
+      `/campaigns/${id}/status`,
+      {
+        method: "PATCH",
+        body: JSON.stringify({
+          status,
+        }),
+      }
+    );
   }
 
+  // ============================================================
   // Protocols
+  // ============================================================
+
   async getProtocols() {
     return this.request<any>("/protocols");
   }
 
+  // ============================================================
   // Audit Logs
-  async getAuditLogs(params?: { limit?: number; action?: string }) {
+  // ============================================================
+
+  async getAuditLogs(params?: {
+    limit?: number;
+    action?: string;
+  }) {
     const search = new URLSearchParams();
-    if (params?.limit) search.set("limit", params.limit.toString());
-    if (params?.action) search.set("action", params.action);
-    const q = search.toString() ? `?${search.toString()}` : "";
+
+    if (params?.limit) {
+      search.set("limit", params.limit.toString());
+    }
+
+    if (params?.action) {
+      search.set("action", params.action);
+    }
+
+    const q = search.toString()
+      ? `?${search.toString()}`
+      : "";
+
     return this.request<any>(`/audit${q}`);
   }
 
+  // ============================================================
   // System Health
+  // ============================================================
+
   async getHealth() {
     return this.request<any>("/health");
   }
