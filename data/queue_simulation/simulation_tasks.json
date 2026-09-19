@@ -1,0 +1,218 @@
+[
+  {
+    "patient_id": "ef8e1fe3-9852-4cb0-acc9-d615f8e8253d",
+    "mrn": "MRN-ST--10013",
+    "name": "Linda Walker",
+    "risk_tier": "URGENT",
+    "discharge_time": "2026-09-14T01:13:20.153305+00:00",
+    "clinical_deadline": "2026-09-16T01:13:20.153305+00:00",
+    "hours_until_deadline": -8.8
+  },
+  {
+    "patient_id": "d1bdb766-4181-4b13-85dd-b5bab2a29385",
+    "mrn": "MRN-ST--10018",
+    "name": "Betty Miller",
+    "risk_tier": "MEDIUM",
+    "discharge_time": "2026-09-14T12:26:39.686903+00:00",
+    "clinical_deadline": "2026-09-16T12:26:39.686903+00:00",
+    "hours_until_deadline": 2.4
+  },
+  {
+    "patient_id": "637d9dc5-3ba4-4209-b00b-64d0e1ae2ca3",
+    "mrn": "MRN-ST--10019",
+    "name": "Daniel Gonzalez",
+    "risk_tier": "HIGH",
+    "discharge_time": "2026-09-16T00:13:39.878565+00:00",
+    "clinical_deadline": "2026-09-18T00:13:39.878565+00:00",
+    "hours_until_deadline": 38.2
+  },
+  {
+    "patient_id": "341a638a-8cbc-42e2-9e3c-3686dfb0598f",
+    "mrn": "MRN-ST--10047",
+    "name": "Patricia Garcia",
+    "risk_tier": "MEDIUM",
+    "discharge_time": "2026-09-14T19:02:54.034538+00:00",
+    "clinical_deadline": "2026-09-16T19:02:54.034538+00:00",
+    "hours_until_deadline": 9.0
+  },
+  {
+    "patient_id": "39e09b33-5462-47c6-b786-9990a1c5d4fc",
+    "mrn": "MRN-ST--10050",
+    "name": "David Johnson",
+    "risk_tier": "LOW",
+    "discharge_time": "2026-09-15T17:43:22.546066+00:00",
+    "clinical_deadline": "2026-09-17T17:43:22.546066+00:00",
+    "hours_until_deadline": 31.7
+  },
+  {
+    "patient_id": "a763f8e8-4f1e-4903-ad4f-6fb81bd00841",
+    "mrn": "MRN-ST--10060",
+    "name": "Elizabeth Lee",
+    "risk_tier": "LOW",
+    "discharge_time": "2026-09-14T08:53:20.648944+00:00",
+    "clinical_deadline": "2026-09-16T08:53:20.648944+00:00",
+    "hours_until_deadline": -1.2
+  },
+  {
+    "patient_id": "a77de445-417a-4ed7-bb7a-23a5c2f00de3",
+    "mrn": "MRN-ST--10073",
+    "name": "Michelle Thompson",
+    "risk_tier": "MEDIUM",
+    "discharge_time": "2026-09-13T21:01:22.268116+00:00",
+    "clinical_deadline": "2026-09-15T21:01:22.268116+00:00",
+    "hours_until_deadline": -13.0
+  },
+  {
+    "patient_id": "1eda9029-7ab5-40b1-90db-74379bfcc776",
+    "mrn": "MRN-ST--10076",
+    "name": "Patricia Miller",
+    "risk_tier": "URGENT",
+    "discharge_time": "2026-09-15T20:37:41.351649+00:00",
+    "clinical_deadline": "2026-09-17T20:37:41.351649+00:00",
+    "hours_until_deadline": 34.6
+  },
+  {
+    "patient_id": "1cf64de6-c1f1-4f65-941d-b92e5a41fc78",
+    "mrn": "MRN-ST--10078",
+    "name": "Joseph Taylor",
+    "risk_tier": "LOW",
+    "discharge_time": "2026-09-14T18:41:33.792623+00:00",
+    "clinical_deadline": "2026-09-16T18:41:33.792623+00:00",
+    "hours_until_deadline": 8.6
+  },
+  {
+    "patient_id": "8b432dc0-74ef-4388-9443-22ad110102f5",
+    "mrn": "MRN-ST--10087",
+    "name": "John Johnson",
+    "risk_tier": "LOW",
+    "discharge_time": "2026-09-14T20:46:45.684245+00:00",
+    "clinical_deadline": "2026-09-16T20:46:45.684245+00:00",
+    "hours_until_deadline": 10.7
+  },
+  {
+    "patient_id": "2d50744c-7bf1-454b-b84f-0b504bd3ea73",
+    "mrn": "MRN-ST--10092",
+    "name": "Andrew Rodriguez",
+    "risk_tier": "HIGH",
+    "discharge_time": "2026-09-14T12:01:24.004005+00:00",
+    "clinical_deadline": "2026-09-16T12:01:24.004005+00:00",
+    "hours_until_deadline": 2.0
+  },
+  {
+    "patient_id": "d84aeae5-cdc9-4b11-9cc7-155fd61f9f31",
+    "mrn": "MRN-ST--10095",
+    "name": "Steven Robinson",
+    "risk_tier": "URGENT",
+    "discharge_time": "2026-09-13T16:17:03.656149+00:00",
+    "clinical_deadline": "2026-09-15T16:17:03.656149+00:00",
+    "hours_until_deadline": -17.8
+  },
+  {
+    "patient_id": "c7d0c9b0-2066-417b-829a-63ca896c7ff5",
+    "mrn": "MRN-ST--10105",
+    "name": "George Jackson",
+    "risk_tier": "LOW",
+    "discharge_time": "2026-09-15T23:49:32.821676+00:00",
+    "clinical_deadline": "2026-09-17T23:49:32.821676+00:00",
+    "hours_until_deadline": 37.8
+  },
+  {
+    "patient_id": "89d006d0-8d14-4585-8239-320f3fde312b",
+    "mrn": "MRN-ST--10133",
+    "name": "Richard Thompson",
+    "risk_tier": "LOW",
+    "discharge_time": "2026-09-15T18:40:15.356100+00:00",
+    "clinical_deadline": "2026-09-17T18:40:15.356100+00:00",
+    "hours_until_deadline": 32.6
+  },
+  {
+    "patient_id": "a3eb5886-5c65-43b7-9488-bf2c4a3d29c4",
+    "mrn": "MRN-ST--10140",
+    "name": "Karen Miller",
+    "risk_tier": "MEDIUM",
+    "discharge_time": "2026-09-15T23:37:12.154874+00:00",
+    "clinical_deadline": "2026-09-17T23:37:12.154874+00:00",
+    "hours_until_deadline": 37.6
+  },
+  {
+    "patient_id": "7135e582-d378-4aed-a3c7-1efee2830550",
+    "mrn": "MRN-ST--10143",
+    "name": "Ashley Garcia",
+    "risk_tier": "MEDIUM",
+    "discharge_time": "2026-09-15T15:38:23.965825+00:00",
+    "clinical_deadline": "2026-09-17T15:38:23.965825+00:00",
+    "hours_until_deadline": 29.6
+  },
+  {
+    "patient_id": "ad46627d-21ec-4921-9fb1-c8a6e534d6cb",
+    "mrn": "MRN-ST--10149",
+    "name": "Barbara Lee",
+    "risk_tier": "URGENT",
+    "discharge_time": "2026-09-14T06:52:51.044120+00:00",
+    "clinical_deadline": "2026-09-16T06:52:51.044120+00:00",
+    "hours_until_deadline": -3.2
+  },
+  {
+    "patient_id": "5a1446ac-d5bd-40fe-a577-a79eff15a863",
+    "mrn": "MRN-ST--10168",
+    "name": "Melissa Thompson",
+    "risk_tier": "MEDIUM",
+    "discharge_time": "2026-09-13T12:08:24.227404+00:00",
+    "clinical_deadline": "2026-09-15T12:08:24.227404+00:00",
+    "hours_until_deadline": -21.9
+  },
+  {
+    "patient_id": "eeb68014-58fa-46cd-8134-4595e6d55df5",
+    "mrn": "MRN-ST--10184",
+    "name": "Kimberly Jackson",
+    "risk_tier": "MEDIUM",
+    "discharge_time": "2026-09-16T03:02:19.226891+00:00",
+    "clinical_deadline": "2026-09-18T03:02:19.226891+00:00",
+    "hours_until_deadline": 41.0
+  },
+  {
+    "patient_id": "b3288d80-4579-480a-8d26-e1d2ee468a21",
+    "mrn": "MRN-ST--10210",
+    "name": "John Taylor",
+    "risk_tier": "HIGH",
+    "discharge_time": "2026-09-15T08:13:46.576920+00:00",
+    "clinical_deadline": "2026-09-17T08:13:46.576920+00:00",
+    "hours_until_deadline": 22.2
+  },
+  {
+    "patient_id": "ef40b790-04bf-401e-9de2-f8523281ae77",
+    "mrn": "MRN-ST--10212",
+    "name": "Melissa Williams",
+    "risk_tier": "LOW",
+    "discharge_time": "2026-09-15T21:55:21.710211+00:00",
+    "clinical_deadline": "2026-09-17T21:55:21.710211+00:00",
+    "hours_until_deadline": 35.9
+  },
+  {
+    "patient_id": "a72b7dd9-0980-4b56-9976-8b7fbc6a9f11",
+    "mrn": "MRN-ST--10233",
+    "name": "Matthew Sanchez",
+    "risk_tier": "MEDIUM",
+    "discharge_time": "2026-09-14T23:04:54.275789+00:00",
+    "clinical_deadline": "2026-09-16T23:04:54.275789+00:00",
+    "hours_until_deadline": 13.0
+  },
+  {
+    "patient_id": "d21923c7-f23b-48fe-8c85-91389a942e24",
+    "mrn": "MRN-ST--10238",
+    "name": "Charles Robinson",
+    "risk_tier": "MEDIUM",
+    "discharge_time": "2026-09-14T02:23:54.295414+00:00",
+    "clinical_deadline": "2026-09-16T02:23:54.295414+00:00",
+    "hours_until_deadline": -7.7
+  },
+  {
+    "patient_id": "98e0a4ab-4bd4-49e9-8cf2-4dea91b2e9ee",
+    "mrn": "MRN-ST--10245",
+    "name": "Thomas Martin",
+    "risk_tier": "LOW",
+    "discharge_time": "2026-09-15T04:50:22.180313+00:00",
+    "clinical_deadline": "2026-09-17T04:50:22.180313+00:00",
+    "hours_until_deadline": 18.8
+  }
+]
