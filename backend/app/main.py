@@ -9,7 +9,7 @@ from backend.app.core.database import engine, Base
 import backend.app.models
 
 # Create database tables on startup
-Base.metadata.create_all(bind=engine)
+
 
 # Import API routers
 from backend.app.api.v1.auth import router as auth_router
